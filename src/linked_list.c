@@ -1,4 +1,5 @@
 #include "linked_list.h"
+#include "student.h"
 #include <stdio.h>
 #include <stdlib.h>
 
@@ -8,7 +9,7 @@ static Node *alloc_node(void) {
 }
 
 /* node config: data, node_linking */
-static void set_node(Node *n, const Student *x, const Node *next) {
+static void set_node(Node *n, const Student *x, Node *next) {   //const Node * -> Node * : Can update Node's value
     n->data = *x;
     n->next = next;
 }
@@ -61,7 +62,7 @@ void insert_front(List *list, const Student *x) {
     Node *ptr = list->head;                 //ptr = points existing list's head node
     list->head = list->crnt = alloc_node(); //new node = list's head node
     set_node(list->head, x, ptr);
-    printf("DONE: INSERT FRONT\n");
+    puts("DONE: INSERT FRONT\n");
 }
 
 void insert_rear(List *list, const Student *x) {
@@ -75,7 +76,7 @@ void insert_rear(List *list, const Student *x) {
         ptr->next = list->crnt = alloc_node();
         set_node(ptr->next, x, NULL);
     }
-    printf("DONE: INSERT REAR\n");
+    puts("DONE: INSERT REAR\n");
 }
 
 void remove_front(List *list) {
@@ -102,4 +103,60 @@ void remove_rear(List *list) {
             list->crnt = pre;           //set current node = pre's node
         }
     }
+}
+
+void remove_current(List *list) {
+    if(list->head != NULL) {            //if there's only 1 node in list
+        if(list->crnt == list->head) {
+            remove_front(list);
+        } else {
+            Node *ptr = list->head;
+            while(ptr->next != list->crnt) {    //find crnt and point it with ptr
+                ptr = ptr->next;
+            }                               //ptr => crnt => crnt->next
+            ptr->next = list->crnt->next;   //ptr = crnt->next
+            free(list->crnt);           //free crnt node
+            list->crnt = ptr;           //crnt->next(ptr) = crnt
+        }
+    }
+}
+
+void remove_all(List *list) {
+    while(list->head != NULL) {
+        remove_front(list);
+    }
+    list->crnt = NULL;
+}
+
+
+void print_current(const List *list) {
+    if(list->crnt == NULL) {
+        puts("SELECTED NODE == NULL");
+    } else {
+        print_student(&list->crnt->data, 0);
+    }
+}
+
+void print_all(const List *list) {
+    if(list->head == NULL) {
+        puts("NO NODE AT ALL");
+    } else {
+        Node *ptr = list->head;
+        while(ptr != NULL) {
+            print_student(&ptr->data, 0);
+            ptr = ptr->next;
+        }
+    }
+}
+
+void clear(List *list) {
+    while(list->head != NULL) {
+        remove_front(list);
+    }
+    list->crnt = NULL;
+}
+
+void terminate(List *list) {
+    clear(list);
+    /* 파일(DB) 저장기능 추가 - database.h */
 }

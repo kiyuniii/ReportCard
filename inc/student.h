@@ -1,6 +1,8 @@
 #ifndef __STUDENT_H__
 #define __STUDENT_H__
 
+#include <stdio.h>
+
 typedef struct {
     char name[10];
     int age;
@@ -18,5 +20,10 @@ typedef struct {
     Info* info;
     Score* score;
 } Student;
+
+void print_info(Student *x);
+void print_score(Student *x);
+void print_error(int err_code);
+void print_student(Student *x, int num);
 
 #endif//__STUDENT_H__
