@@ -9,12 +9,14 @@ SRCS = main.c 					\
        $(SRC_DIR)/database.c 	\
        $(SRC_DIR)/linked_list.c \
        $(SRC_DIR)/student.c		\
-	   $(SRC_DIR)/table.c
-
+	   $(SRC_DIR)/manager.c		\
+	   $(SRC_DIR)/table.cma
+	   
 OBJS = $(OBJ_DIR)/main.o 		\
        $(OBJ_DIR)/database.o 	\
        $(OBJ_DIR)/linked_list.o \
 	   $(OBJ_DIR)/student.o \
+	   $(OBJ_DIR)/manager.o \
        $(OBJ_DIR)/table.o
 
 TARGET = reportCard.out

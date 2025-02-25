@@ -1,14 +1,17 @@
 #include "manager.h"
+#include "table.h"
 #include "linked_list.h"
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
+
 #include <syslog.h>
 
 static int count = 0;
 void init_manager(List *list) {
     initialize(list);
     if(list->head == NULL) {
-        puts("MANAGER.C: THERE'S NO NODE AT ALL");
+        boxline_txt(x_message, y_message, "MANAGER.C: THERE'S NO NODE AT ALL");
         count = 0;
     } else {
         Node *ptr = list->head;
@@ -23,9 +26,15 @@ void init_manager(List *list) {
 }
 
 Info *build_info() {
-    char input_name[10];
-    int input_age;
-    int input_classroom;
+    Info *info = (Info *)malloc(sizeof(Info));
+    if (info == NULL) {
+        printf("MALLOC(INFO) FAILED\n");
+        return NULL;
+    }
+    
+    char input_name[10] = "";
+    int input_age = 0;
+    int input_classroom = 0;
 
     printf(" NAME: ");
     fgets(input_name, sizeof(input_name), stdin);
@@ -35,7 +44,6 @@ Info *build_info() {
     printf("CLASS: ");
     scanf("%d", input_classroom);
     
-    Info *info;
     strcpy(info->name, input_name);
     strcpy(info->age, input_age);
     strcpy(info->classroom, input_classroom);
@@ -43,10 +51,16 @@ Info *build_info() {
     return info;
 }
 
-Score *build_score() {
-    int input_kor_score;
-    int input_math_score;
-    int input_eng_score;
+Score *build_score() {   
+    Score *score = (Score *)malloc(sizeof(Score));
+    if (score == NULL) {
+        printf("MALLOC(SCORE) FAILED\n");
+        return NULL;
+    }
+
+    int input_kor_score = 0;
+    int input_math_score = 0;
+    int input_eng_score = 0;
 
     printf(" KOR : ");
     scanf("%d", input_kor_score);
@@ -55,7 +69,6 @@ Score *build_score() {
     printf(" ENG : ");
     scanf("%d", input_eng_score);
 
-    Score *score;
     strcpy(score->kor_score, input_kor_score);
     strcpy(score->math_score, input_math_score);
     strcpy(score->eng_score, input_eng_score);
@@ -65,19 +78,24 @@ Score *build_score() {
 
 Student *build_student() {
     int new_id = count;
+    Student *student = (Student *)malloc(sizeof(Student));
+
+    if(student == NULL) {
+        printf("MALLOC(STUDENT) FAILED");
+        return NULL;
+    }
     
+
     Info *new_info;
     Score *new_score;
     new_info = build_info();
     new_score = build_score();
 
-    Student *student;
     student->id = new_id;
     student->info = new_info;
     student->score = new_score;
 
     count++;
-    
     return student;
 }
 
@@ -122,9 +140,9 @@ void update_student(List *list, const Student *x) {
     }
 }
 
-// void delete_student(List *list, int num) {
+void delete_student(List *List, int id, int num) {
 
-// }
+}
 
 
 void close_manager() {
