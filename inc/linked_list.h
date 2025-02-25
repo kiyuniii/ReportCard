@@ -15,6 +15,10 @@ typedef struct {
     Node *crnt; //current node
 } List;
 
+
+static Node *alloc_node(void);
+static void set_node(Node *n, const Student *x, Node *next);
+
 void initialize(List *list);
 Node *Search(List *list, const Student* x,
     int (*compare)(const Student *x, const Student *y));

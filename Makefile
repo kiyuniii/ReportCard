@@ -17,7 +17,7 @@ OBJS = $(OBJ_DIR)/main.o 		\
 	   $(OBJ_DIR)/student.o \
        $(OBJ_DIR)/table.o
 
-TARGET = reportCard
+TARGET = reportCard.out
 
 all: $(TARGET)
 
