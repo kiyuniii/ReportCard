@@ -4,14 +4,13 @@
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
-
 #include <syslog.h>
 
 static int count = 0;
 void init_manager(List *list) {
     initialize(list);
     if(list->head == NULL) {
-        boxline_txt(x_message, y_message, "MANAGER.C: THERE'S NO NODE AT ALL");
+        boxline_txt(*point->x_message, *point->y_message, "MANAGER.C: THERE'S NO NODE AT ALL");
         count = 0;
     } else {
         Node *ptr = list->head;

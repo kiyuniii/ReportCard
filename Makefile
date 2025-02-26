@@ -1,5 +1,6 @@
 CC = gcc
-CFLAGS = -Wall -Wextra -Iinc
+CFLAGS = -Wall -Wextra -I$(INC_DIR)
+LDFLAGS = -lm
 
 SRC_DIR = src
 INC_DIR = inc
@@ -10,7 +11,7 @@ SRCS = main.c 					\
        $(SRC_DIR)/linked_list.c \
        $(SRC_DIR)/student.c		\
 	   $(SRC_DIR)/manager.c		\
-	   $(SRC_DIR)/table.cma
+	   $(SRC_DIR)/table.c
 	   
 OBJS = $(OBJ_DIR)/main.o 		\
        $(OBJ_DIR)/database.o 	\
@@ -24,7 +25,7 @@ TARGET = reportCard.out
 all: $(TARGET)
 
 $(TARGET): $(OBJS)
-	$(CC) $(CFLAGS) -o $@ $^
+	$(CC) $(CFLAGS) -o $@ $^ $(LDFLAGS)
 
 $(OBJ_DIR):
 	mkdir -p $(OBJ_DIR)

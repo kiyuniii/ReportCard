@@ -5,6 +5,7 @@
 #include "student.h"
 
 void init_manager(List *list);
+//void free_manager();
 //int get_student_id(char *name, int value, int mode);
 Info *build_info();
 Score *build_score();

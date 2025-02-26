@@ -6,11 +6,16 @@
 #include <unistd.h>
 
 int main() {
+    init_table();       //gen. layout, point
+
     clear_screen();
-    update_layout();
+    update_layout();    //gen. members of layout, point
     draw_box();
 
     List *list;
     init_manager(list);
-    move_cursor(x_io, y_io);
+    move_cursor(*point->x_io, *point->y_io);
+    
+    free_table();
+    return 0;
 }

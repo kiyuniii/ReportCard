@@ -1,35 +1,26 @@
 #ifndef __TABLE_H__
 #define __TABLE_H__
 
-//#define SCREEN_HEIGHT 50
 #define PADDING 1
 
-// #define ANSI_COLOR_RED     "\x1b[31m"
-// #define ANSI_COLOR_GREEN   "\x1b[32m"
-// #define ANSI_COLOR_YELLOW  "\x1b[33m"
-// #define ANSI_COLOR_BLUE    "\x1b[34m"
-// #define ANSI_COLOR_RESET   "\x1b[0m"
-// #define ANSI_BOLD          "\x1b[1m"
+typedef struct {
+    int *left_w, *right_w, \
+           *list_h, *overview_h, *search_h, *io_h, *msg_h;
+} Layout;
 
-extern int left_w;
-extern int list_h;
-extern int right_w;
-extern int overview_h;
-extern int search_h;
-extern int io_h;
-extern int msg_h;
+typedef struct {
+    int *x_list, *y_list,           \
+           *x_overview, *y_overview,   \
+           *x_search, *y_search,       \
+           *x_io, *y_io,               \
+           *x_message, *y_message;
+} Point;
 
-extern int x_list;
-extern int y_list;
-extern int x_overview;
-extern int y_overview;
-extern int x_search;
-extern int y_search;
-extern int x_io;
-extern int y_io;
-extern int x_message;
-extern int y_message;
+extern Layout *layout;
+extern Point *point;
 
+void init_table();
+void free_table();
 void get_terminal_size(int *width, int *height);
 void move_cursor(int x, int y);
 void clear_screen();
